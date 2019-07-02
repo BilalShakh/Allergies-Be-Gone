@@ -10,14 +10,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.io.ByteArrayInputStream;
@@ -28,8 +26,6 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private final String apiEndpoint = "https://eastus.api.cognitive.microsoft.com/face/v1.0";
 
-    // Replace `<Subscription Key>` with your subscription key.
-    // For example, subscriptionKey = "0123456789abcdef0123456789ABCDEF"
     private final String subscriptionKey = "f776aad99025497e978d029b48cfa3b5";
 
     private final FaceServiceClient faceServiceClient = new FaceServiceRestClient(apiEndpoint, subscriptionKey);
@@ -38,13 +34,25 @@ public class MainActivity extends AppCompatActivity {
 
     private Bitmap face;
 
+    private ArrayList<String> symptomFoodList = new ArrayList<>();
+
+    private ArrayList<String> symptomActList = new ArrayList<>();
+
+    private ArrayList<String> symptomEmotionList = new ArrayList<>();
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        final EditText eatingEditText = findViewById(R.id.eatingEditText);
+        final EditText actionsEditText = findViewById(R.id.actionsEditText);
+        final TextView emotionTextView = findViewById(R.id.emotionTextView);
 
+
+
+        //all button event handlers
         Button captureBtn = findViewById(R.id.captureBtn);
         captureBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,11 +60,6 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(cameraIntent,0);
-
-                /*ImageView imageView = findViewById(R.id.imageView);
-                imageView.invalidate();
-                BitmapDrawable img = (BitmapDrawable) imageView.getDrawable();
-                Bitmap face = img.getBitmap();*/
             }
         });
 
@@ -65,6 +68,34 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 detectAndFrame(face);
+            }
+        });
+
+        Button addBtn  = findViewById(R.id.addBtn);
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String food = eatingEditText.getText().toString();
+                String action = actionsEditText.getText().toString();
+                String emotion = emotionTextView.getText().toString();
+                if(food!="" && action!="" && emotion!="Emotions here..."){
+                    symptomFoodList.add(food);
+                    symptomActList.add(action);
+                    symptomEmotionList.add(emotion);
+                }
+            }
+        });
+
+        Button resultBtn = findViewById(R.id.resultBtn);
+        resultBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(symptomFoodList.size()>0){
+                    displayHypothesis(true,eatingEditText.getText().toString(),actionsEditText.getText().toString(),emotionTextView.getText().toString());
+                }
+                else{
+                    displayHypothesis(false,"","","");
+                }
             }
         });
 
@@ -150,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
 
                         setContentView(R.layout.activity_main);
 
-                        TextView resultTextView = findViewById(R.id.resultTextView);
+                        TextView resultTextView = findViewById(R.id.emotionTextView);
                         resultTextView.setText("Suprise: "+ emotionNums.get(0)+"Anger: " + emotionNums.get(1)+"Contempt: " + emotionNums.get(2)+"Disgust: " + emotionNums.get(3)+"Fear: " + emotionNums.get(4)+"Happiness: " + emotionNums.get(5)+" Neutral: " + emotionNums.get(6)+"Sadness: " + emotionNums.get(7));
 
                     }
@@ -173,6 +204,29 @@ public class MainActivity extends AppCompatActivity {
             emotionNums.add(result[0].faceAttributes.emotion.sadness);
 
             return emotionNums;
+    }
+
+    private void displayHypothesis(boolean showOrNot,String food,String action,String emotion){
+        setContentView(R.layout.activity_main);
+        TextView hypthesisTextView = findViewById(R.id.hypothesisTextView);
+        String result = "You are unlikely to have an allergic reaction";
+        int listSize = symptomActList.size();
+
+
+        if(showOrNot){
+            for(int i=0;i<listSize;i++){
+                if(food == symptomFoodList.get(i)|action==symptomActList.get(i)|emotion==symptomEmotionList.get(i)){
+                    result = "You might have an allergic reaction,be careful.";
+                    break;
+                }
+            }
+
+        }
+        else{
+            result = "Not enough Data";
+        }
+
+        hypthesisTextView.setText(result);
     }
 
 }
