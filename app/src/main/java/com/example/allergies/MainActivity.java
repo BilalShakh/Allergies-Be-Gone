@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
                     symptomFoodList.add(food);
                     symptomActList.add(action);
                     symptomEmotionList.add(emotion);
+                    clearText();
                 }
             }
         });
@@ -90,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         resultBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(symptomFoodList.size()>0){
+                if(symptomFoodList.size()>0 & emotionTextView.getText().toString()!="Emotions here..."){
                     displayHypothesis(true,eatingEditText.getText().toString(),actionsEditText.getText().toString(),emotionTextView.getText().toString());
                 }
                 else{
@@ -227,6 +228,17 @@ public class MainActivity extends AppCompatActivity {
         }
 
         hypthesisTextView.setText(result);
+    }
+
+    private void clearText() {
+        setContentView(R.layout.activity_main);
+        EditText eatingEditText = findViewById(R.id.eatingEditText);
+        EditText actionsEditText = findViewById(R.id.actionsEditText);
+        TextView emotionTextView = findViewById(R.id.emotionTextView);
+
+        eatingEditText.setText("");
+        actionsEditText.setText("");
+        emotionTextView.setText("Emotions here...");
     }
 
 }
