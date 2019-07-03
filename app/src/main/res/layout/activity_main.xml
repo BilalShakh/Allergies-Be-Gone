@@ -4,12 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/backgroundcolour"
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="32dp"
         android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -18,60 +23,88 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:text="TAKE A PICTURE" />
+            android:background="@drawable/textview_border"
+            android:text="TAKE A PICTURE"
+            android:textColor="#FFFFFF" />
 
         <Button
             android:id="@+id/dataBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            android:text="Show Emotions" />
+            android:layout_marginTop="10dp"
+            android:background="@drawable/textview_border"
+            android:text="Show Emotions"
+            android:textColor="#FFFFFF" />
 
         <TextView
             android:id="@+id/emotionTextView"
-            android:layout_width="405dp"
-            android:layout_height="20dp"
-            android:text="Emotions here..." />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/textview_border"
+            android:gravity="left"
+            android:text="Emotions here..."
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/eatingEditText"
-            android:layout_width="401dp"
-            android:layout_height="46dp"
-            android:ems="10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/textview_border"
+            android:gravity="center"
             android:hint="What did you eat?"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF" />
 
         <EditText
             android:id="@+id/actionsEditText"
-            android:layout_width="401dp"
-            android:layout_height="45dp"
-            android:ems="10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/textview_border"
+            android:gravity="center"
             android:hint="What did you do today?"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/resultBtn"
-                android:layout_width="191dp"
-                android:layout_height="39dp"
-                android:text="Find Hypothesis" />
+                android:layout_width="156dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/textview_border"
+                android:text="Find Hypothesis"
+                android:textColor="#FFFFFF" />
 
             <Button
                 android:id="@+id/addBtn"
-                android:layout_width="187dp"
-                android:layout_height="37dp"
-                android:text="Allergy occured!" />
+                android:layout_width="156dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="34dp"
+                android:background="@drawable/textview_border"
+                android:text="Allergy occured!"
+                android:textColor="#FFFFFF" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/hypothesisTextView"
-            android:layout_width="385dp"
-            android:layout_height="226dp"
-            android:text="Hypothesis for the day.." />
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/textview_border"
+            android:gravity="left"
+            android:text="Hypothesis for the day.."
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
 
     </LinearLayout>
 
