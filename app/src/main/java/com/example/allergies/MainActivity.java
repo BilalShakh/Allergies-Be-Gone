@@ -26,7 +26,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private final String apiEndpoint = "https://eastus.api.cognitive.microsoft.com/face/v1.0";
 
-    private final String subscriptionKey = "f776aad99025497e978d029b48cfa3b5";
+    private final String subscriptionKey = "";
 
     private final FaceServiceClient faceServiceClient = new FaceServiceRestClient(apiEndpoint, subscriptionKey);
 
