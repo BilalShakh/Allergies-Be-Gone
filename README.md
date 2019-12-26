@@ -7,7 +7,7 @@ Instructions
 * The app takes a picture with the take picture button and then the user's emotion's according to the Microsoft Azure face API can be shown with Show Emotions button.
 * Then the user can enter what they ate and did in the day when the allergy occured. And if they press the Allergy occured button the data gets saved.
 * After the user has inputted the data once in the app it uses the data form a hypothesis of if the allergy is going to occur or not.<br></br>
-![image]("https://github.com/BilalShakh/Allergies-Be-Gone/blob/master/img3.PNG")
+![Image](https://github.com/BilalShakh/Allergies-Be-Gone/blob/master/img3.PNG)
 
 Future Plans
 ------------
